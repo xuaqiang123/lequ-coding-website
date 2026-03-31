@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐趣编程 LeQu Coding - 少儿编程教育 | 合肥</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --primary-light: #60A5FA;
+            --primary-dark: #2563EB;
+            --secondary: #2D1B69;
+            --gradient-start: #43E97B;
+            --gradient-end: #38F9D7;
+            --bg-light: #F8F9FA;
+            --bg-dark: #1A1A2E;
+            --text-dark: #2D3436;
+            --text-light: #636E72;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Floating Code Background */
+        .code-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .code-symbol {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            color: var(--secondary);
+            opacity: 0.05;
+            animation: float 20s infinite ease-in-out;
+        }
+        .code-symbol:nth-child(1) { left: 5%; top: 10%; animation-delay: 0s; }
+        .code-symbol:nth-child(2) { left: 15%; top: 30%; animation-delay: 2s; }
+        .code-symbol:nth-child(3) { left: 25%; top: 50%; animation-delay: 4s; }
+        .code-symbol:nth-child(4) { left: 35%; top: 70%; animation-delay: 6s; }
+        .code-symbol:nth-child(5) { left: 55%; top: 20%; animation-delay: 8s; }
+        .code-symbol:nth-child(6) { left: 65%; top: 40%; animation-delay: 10s; }
+        .code-symbol:nth-child(7) { left: 75%; top: 60%; animation-delay: 12s; }
+        .code-symbol:nth-child(8) { left: 85%; top: 15%; animation-delay: 14s; }
+        .code-symbol:nth-child(9) { left: 92%; top: 45%; animation-delay: 16s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(-3deg); }
+            75% { transform: translateY(-40px) rotate(3deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon svg { width: 24px; height: 24px; stroke: white; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.625rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #fff8f5 0%, #fff5f0 100%);
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .code-window {
+            background: linear-gradient(135deg, #1e1e1e, #2d2d2d);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 480px;
+        }
+        .code-window-header {
+            background: #3c3c3c;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .code-dot { width: 14px; height: 14px; border-radius: 50%; }
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27c93f; }
+        .code-window-content {
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.9;
+        }
+        .code-keyword { color: #c792ea; }
+        .code-function { color: #82aaff; }
+        .code-string { color: #c3e88d; }
+        .code-comment { color: #676e95; }
+        .code-variable { color: #f78c6c; }
+        .code-number { color: #f78c6c; }
+
+        /* Section Common */
+        section { padding: 5rem 0; position: relative; z-index: 1; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Courses */
+        .courses { background: white; }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid #eee;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .course-card:hover::before { transform: scaleX(1); }
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.15);
+            border-color: transparent;
+        }
+        .course-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #fff5f0, #fff0e8);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .course-icon svg { width: 36px; height: 36px; stroke: var(--primary); }
+        .course-card h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+        .course-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        .course-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Campuses */
+        .campuses { background: linear-gradient(135deg, #fff8f5 0%, #fff5f0 100%); }
+        .campuses-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .campus-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid #f0e8e4;
+            cursor: pointer;
+        }
+        .campus-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.12);
+            border-color: var(--primary);
+        }
+        .campus-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .campus-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .campus-icon svg { width: 24px; height: 24px; stroke: white; }
+        .campus-area {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+        .campus-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+        .campus-address {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .campus-address svg { width: 16px; height: 16px; stroke: var(--primary-light); flex-shrink: 0; margin-top: 2px; }
+
+        /* Why Us */
+        .why-us { background: var(--secondary); color: white; }
+        .why-us .section-title h2 { color: white; }
+        .why-us .section-title p { color: rgba(255,255,255,0.7); }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .why-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .why-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .why-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        .why-icon svg { width: 40px; height: 40px; stroke: white; }
+        .why-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .why-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9375rem;
+        }
+
+        /* Stats */
+        .stats {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 4rem 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-label {
+            font-size: 1.125rem;
+            opacity: 0.95;
+        }
+
+        /* CTA */
+        .cta {
+            background: white;
+            text-align: center;
+            padding: 5rem 0;
+        }
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+        .cta p {
+            color: var(--text-light);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-brand .logo { color: white; margin-bottom: 1rem; }
+        .footer-brand p { color: #94a3b8; font-size: 0.9375rem; max-width: 300px; }
+        .footer-col h4 {
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: #e2e8f0;
+        }
+        .footer-col a {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.9375rem;
+            margin-bottom: 0.75rem;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--primary-light); }
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { margin: 0 auto 2rem; }
+            .hero-buttons { justify-content: center; }
+            .hero-visual { display: none; }
+            .courses-grid { grid-template-columns: repeat(2, 1fr); }
+            .campuses-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero { padding: 7rem 0 3rem; }
+            .hero h1 { font-size: 2rem; }
+            .courses-grid, .campuses-grid, .why-grid, .stats-grid { grid-template-columns: 1fr; }
+            .section-title h2 { font-size: 1.75rem; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Code Background -->
+    <div class="code-bg">
+        <div class="code-symbol">{ }</div>
+        <div class="code-symbol">&lt;/&gt;</div>
+        <div class="code-symbol">if() {}</div>
+        <div class="code-symbol">=&gt;</div>
+        <div class="code-symbol">[]</div>
+        <div class="code-symbol">def</div>
+        <div class="code-symbol">()</div>
+        <div class="code-symbol">+=</div>
+        <div class="code-symbol">return</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+                    </svg>
+                </div>
+                乐趣编程
+            </a>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#courses">课程体系</a>
+                <a href="#campuses">校区分布</a>
+                <a href="#why-us">关于我们</a>
+                <a href="#contact" class="nav-cta">预约体验</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>编程改变未来<br><span>从乐趣编程开始</span></h1>
+                <p>专业少儿编程教育机构，覆盖Scratch、Python、C++全课程体系。8大校区覆盖合肥，培养未来科技之星。</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2"/>
+                            <path d="M16 2v4M8 2v4M3 10h18"/>
+                        </svg>
+                        预约体验
+                    </a>
+                    <a href="#courses" class="btn-secondary">
+                        了解课程
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-window-header">
+                        <div class="code-dot red"></div>
+                        <div class="code-dot yellow"></div>
+                        <div class="code-dot green"></div>
+                    </div>
+                    <div class="code-window-content">
+                        <span class="code-comment"># 乐趣编程 - 我的第一个程序</span><br><br>
+                        <span class="code-keyword">def</span> <span class="code-function">welcome</span>(name):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">message</span> = <span class="code-string">f"欢迎来到{name}!"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> message<br><br>
+                        <span class="code-variable">school</span> = <span class="code-string">"乐趣编程"</span><br>
+                        <span class="code-function">print</span>(<span class="code-function">welcome</span>(school))<br><br>
+                        <span class="code-comment"># 输出: 欢迎来到乐趣编程!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>课程体系</h2>
+                <p>针对不同年龄段精心设计的进阶式课程，让孩子在快乐中掌握编程技能</p>
+            </div>
+            <div class="courses-grid">
+                <!-- Scratch -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                            <circle cx="6.5" cy="6.5" r="1.5"/>
+                            <circle cx="17.5" cy="6.5" r="1.5"/>
+                            <circle cx="6.5" cy="17.5" r="1.5"/>
+                            <circle cx="17.5" cy="17.5" r="1.5"/>
+                        </svg>
+                    </div>
+                    <h3>Scratch 图形化编程</h3>
+                    <p>通过拖拽积木块的方式学习编程逻辑，培养计算思维和创造力，适合6-9岁儿童。</p>
+                    <span class="course-tag">6-9岁</span>
+                </div>
+                <!-- Python -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <path d="M12 2C9.5 2 9 3 9 4v2h3v1H8c-1.5 0-2 1-2 2.5v4c0 1.5.5 2.5 2 2.5h1v-2c0-1 .5-2 2-2h3c1.5 0 2-.5 2-2V6c0-1-.5-2-2-2H9z"/>
+                            <path d="M12 22c2.5 0 3-1 3-2v-2h-3v-1h4c1.5 0 2-1 2-2.5v-4c0-1.5-.5-2.5-2-2.5h-1v2c0 1-.5 2-2 2H9c-1.5 0-2 .5-2 2v5c0 1 .5 2 2 2h3v1H9c-1.5 0-2 1-2 2.5v2c0 1.5.5 2.5 2 2.5h5z"/>
+                        </svg>
+                    </div>
+                    <h3>Python 代码编程</h3>
+                    <p>从零基础开始，学习人工智能时代的编程语言，开发游戏、网站、数据分析等应用。</p>
+                    <span class="course-tag">9-14岁</span>
+                </div>
+                <!-- C++ -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <path d="M9 9l6 3-6 3"/>
+                            <circle cx="9" cy="12" r="1" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>C++ 信息学竞赛</h3>
+                    <p>备战NOIP等信息学奥赛，系统学习算法与数据结构，为升学加分助力。</p>
+                    <span class="course-tag">12-16岁</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campuses -->
+    <section class="campuses" id="campuses">
+        <div class="container">
+            <div class="section-title">
+                <h2>校区分布</h2>
+                <p>8大校区覆盖合肥各区，就近入学更便捷</p>
+            </div>
+            <div class="campuses-grid">
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">经开区</div>
+                            <div class="campus-name">正大广场校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        正大广场
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">滨湖区</div>
+                            <div class="campus-name">方圆荟校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        方圆荟
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">包河区</div>
+                            <div class="campus-name">大融城校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        绿地大融城
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">肥西县</div>
+                            <div class="campus-name">旭辉校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        旭辉
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">肥东县</div>
+                            <div class="campus-name">吾悦校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        吾悦广场
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">庐阳区</div>
+                            <div class="campus-name">欢乐颂校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        欢乐颂
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">瑶海区</div>
+                            <div class="campus-name">禹悦里校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        禹悦里
+                    </div>
+                </a>
+                <a href="#contact" class="campus-card">
+                    <div class="campus-header">
+                        <div class="campus-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                <polyline points="9,22 9,12 15,12 15,22"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="campus-area">庐江县</div>
+                            <div class="campus-name">恒太城校区</div>
+                        </div>
+                    </div>
+                    <div class="campus-address">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        恒太城
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="why-us" id="why-us">
+        <div class="container">
+            <div class="section-title">
+                <h2>为什么选择我们</h2>
+                <p>专业、专注、专属——为孩子提供最优质的编程教育</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>专业师资</h3>
+                    <p>资深编程教师团队，持有相关专业资质，热爱教育善于引导</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <circle cx="19" cy="7" r="2"/>
+                            <circle cx="19" cy="11" r="2"/>
+                        </svg>
+                    </div>
+                    <h3>小班授课</h3>
+                    <p>精品小班教学，每位学员都能得到充分关注和指导</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <path d="M6 9H4.5a2.5 2.5 0 010-5H6"/>
+                            <path d="M18 9h1.5a2.5 2.5 0 000-5H18"/>
+                            <path d="M4 22h16"/>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                            <path d="M18 2H6v7a6 6 0 1012 0V2z"/>
+                        </svg>
+                    </div>
+                    <h3>竞赛辅导</h3>
+                    <p>专业竞赛指导，助力学员在NOIP等赛事中取得优异成绩</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                            <path d="M7 8l3 3-3 3M12 14h4"/>
+                        </svg>
+                    </div>
+                    <h3>项目实践</h3>
+                    <p>动手实践为主，让学生在真实项目中掌握编程技能</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">2000+</div>
+                    <div class="stat-label">累计学员</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">直营校区</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50000+</div>
+                    <div class="stat-label">累计课时</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">竞赛获奖</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>开启孩子的编程之旅</h2>
+            <p>预约免费体验课，让孩子爱上编程</p>
+            <a href="#contact" class="btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <path d="M16 2v4M8 2v4M3 10h18"/>
+                </svg>
+                立即预约
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+                            </svg>
+                        </div>
+                        乐趣编程
+                    </a>
+                    <p>专业少儿编程教育，让每个孩子都能在乐趣中发现编程的魅力。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>课程体系</h4>
+                    <a href="#courses">Scratch 编程</a>
+                    <a href="#courses">Python 编程</a>
+                    <a href="#courses">C++ 竞赛</a>
+                </div>
+                <div class="footer-col">
+                    <h4>校区分布</h4>
+                    <a href="#campuses">经开正大广场</a>
+                    <a href="#campuses">滨湖方圆荟</a>
+                    <a href="#campuses">更多校区</a>
+                </div>
+                <div class="footer-col">
+                    <h4>联系我们</h4>
+                    <a href="#contact">预约体验</a>
+                    <a href="#why-us">关于我们</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 乐趣编程 LeQu Coding. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
