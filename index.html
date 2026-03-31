@@ -519,6 +519,19 @@
             .footer-content { grid-template-columns: 1fr; }
         }
     </style>
+
+<!-- 弹窗样式 -->
+<style>
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; }
+.modal.show { display: flex; opacity: 1; }
+.modal-content { background: white; padding: 2rem; border-radius: 16px; text-align: center; max-width: 90%; position: relative; transform: scale(0.8); transition: transform 0.3s; }
+.modal.show .modal-content { transform: scale(1); }
+.modal-close { position: absolute; top: 12px; right: 16px; font-size: 28px; color: #999; cursor: pointer; line-height: 1; }
+.modal-close:hover { color: #333; }
+.modal-content h3 { margin-bottom: 1rem; color: var(--primary); font-size: 1.25rem; }
+.wechat-qr { width: 250px; height: auto; border-radius: 8px; margin: 0 auto 1rem; }
+.modal-content p { color: var(--text-light); font-size: 0.9rem; }
+</style>
 </head>
 <body>
     <!-- Floating Code Background -->
@@ -562,7 +575,7 @@
                 <h1>编程改变未来<br><span>从乐趣编程开始</span></h1>
                 <p>专业少儿编程教育机构，覆盖Scratch、Python、C++全课程体系。8大校区覆盖合肥，培养未来科技之星。</p>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn-primary">
+                    <a href="javascript:void(0)" class="btn-primary" onclick="showWechatModal()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="4" width="18" height="18" rx="2"/>
                             <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -922,7 +935,7 @@
         <div class="container">
             <h2>开启孩子的编程之旅</h2>
             <p>预约免费体验课，让孩子爱上编程</p>
-            <a href="#contact" class="btn-primary">
+            <a href="javascript:void(0)" class="btn-primary" onclick="showWechatModal()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="4" width="18" height="18" rx="2"/>
                     <path d="M16 2v4M8 2v4M3 10h18"/>
@@ -970,5 +983,23 @@
             </div>
         </div>
     </footer>
+
+<!-- 微信二维码弹窗 -->
+<div id="wechat-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">×</span>
+        <h3>扫码添加微信</h3>
+        <img src="WechatIMG332.jpg" alt="微信二维码" class="wechat-qr">
+        <p>长按识别二维码，添加好友咨询</p>
+    </div>
+</div>
+
+
+<!-- 弹窗JS -->
+<script>
+function showWechatModal() { document.getElementById("wechat-modal").classList.add("show"); }
+document.querySelector(".modal-close").onclick = function() { document.getElementById("wechat-modal").classList.remove("show"); };
+document.getElementById("wechat-modal").onclick = function(e) { if(e.target === this) this.classList.remove("show"); };
+</script>
 </body>
 </html>
