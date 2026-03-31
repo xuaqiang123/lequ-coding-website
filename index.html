@@ -9,13 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3B82F6;
-            --primary-light: #60A5FA;
-            --primary-dark: #2563EB;
+            --primary: #1062ec;
+            --primary-light: #3d8bf0;
+            --primary-dark: #0d4db3;
             --secondary: #2D1B69;
             --gradient-start: #43E97B;
             --gradient-end: #38F9D7;
-            --bg-light: #F8F9FA;
+            --bg-light: #ebfaff;
             --bg-dark: #1A1A2E;
             --text-dark: #2D3436;
             --text-light: #636E72;
@@ -72,7 +72,9 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(235, 250, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
         }
@@ -93,7 +95,7 @@
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -113,7 +115,7 @@
         }
         .nav-links a:hover { color: var(--primary); }
         .nav-cta {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             color: white;
             padding: 0.625rem 1.5rem;
             border-radius: 50px;
@@ -130,7 +132,7 @@
         /* Hero */
         .hero {
             padding: 8rem 0 4rem;
-            background: linear-gradient(135deg, #fff8f5 0%, #fff5f0 100%);
+            background: linear-gradient(135deg, #ebfaff 0%, #d4f0ff 50%, #ebfaff 100%);
             position: relative;
             min-height: 90vh;
             display: flex;
@@ -152,7 +154,7 @@
             color: var(--text-dark);
         }
         .hero h1 span {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -168,7 +170,7 @@
             gap: 1rem;
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             color: white;
             padding: 1rem 2rem;
             border-radius: 50px;
@@ -264,7 +266,9 @@
             gap: 2rem;
         }
         .course-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 2rem;
             border: 1px solid #eee;
@@ -290,7 +294,7 @@
         .course-icon {
             width: 72px;
             height: 72px;
-            background: linear-gradient(135deg, #fff5f0, #fff0e8);
+            background: linear-gradient(135deg, rgba(16, 98, 236, 0.1), rgba(16, 98, 236, 0.05));
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -311,7 +315,7 @@
         }
         .course-tag {
             display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 50px;
@@ -320,14 +324,16 @@
         }
 
         /* Campuses */
-        .campuses { background: linear-gradient(135deg, #fff8f5 0%, #fff5f0 100%); }
+        .campuses { background: linear-gradient(135deg, #ebfaff 0%, #d4f0ff 50%, #ebfaff 100%); }
         .campuses-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
         }
         .campus-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 16px;
             padding: 1.5rem;
             transition: all 0.3s;
@@ -348,7 +354,7 @@
         .campus-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -403,7 +409,7 @@
         .why-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: linear-gradient(135deg, #1062ec, #3d8bf0);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -531,6 +537,21 @@
 .modal-content h3 { margin-bottom: 1rem; color: var(--primary); font-size: 1.25rem; }
 .wechat-qr { width: 250px; height: auto; border-radius: 8px; margin: 0 auto 1rem; }
 .modal-content p { color: var(--text-light); font-size: 0.9rem; }
+
+/* 玻璃拟态效果 */
+.glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px rgba(16, 98, 236, 0.1);
+}
+.glass-dark {
+    background: rgba(16, 98, 236, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(16, 98, 236, 0.2);
+}
 </style>
 </head>
 <body>
